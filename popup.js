@@ -1,3 +1,4 @@
+// Click handler
 document.getElementById("submit").addEventListener("click", () => {
 	const textValue = document.getElementById("textbox").value;
 	chrome.storage.local.set({ token: textValue }, () => {
@@ -6,6 +7,7 @@ document.getElementById("submit").addEventListener("click", () => {
 	});
 });
 
+// Toggle switch that handles whether this extension is enable
 document.getElementById("toggle-switch").addEventListener("change", () => {
 	const checkbox = document.getElementById("toggle-switch").checked;
 	if (checkbox) {
@@ -19,6 +21,7 @@ document.getElementById("toggle-switch").addEventListener("change", () => {
 	}
 });
 
+// Set variable when load
 window.addEventListener("load", () => {
 	chrome.storage.local.get("token", (result) => {
 		document.getElementById("current-token").innerHTML = result.token;

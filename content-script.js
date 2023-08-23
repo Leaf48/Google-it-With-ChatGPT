@@ -1,11 +1,15 @@
-async function test() {
+async function script() {
+	// check if enable
 	const isEnabled = (await chrome.storage.local.get("enable")).enable;
 	if (!isEnabled) {
 		return console.log("ChatGPT Search is disabled");
 	}
 
+	// get element
 	var barElement = document.getElementById("appbar");
 	var parentElement = barElement.parentNode;
+
+	// create new element
 	var newElement = document.createElement("div");
 	newElement.innerHTML = "hello";
 	parentElement.insertBefore(newElement, barElement.nextSibling);
@@ -15,22 +19,27 @@ async function test() {
 	newElement.style.textAlign = "center";
 	newElement.style.margin = "0 5rem 0 5rem";
 
+	// get search textbox
 	var searchTextbox = document.querySelector(
 		'textarea[name="q"][type="search"]'
 	);
 	var searchValue = searchTextbox.value;
 
+	// when query is empty
 	if (searchValue === "") {
 		return console.log("Query is empty!");
 	}
 
+	// get token
 	var token = await chrome.storage.local.get("token");
 	token = token.token;
 
+	// when token is empty
 	if (token === "") {
 		return (newElement.innerHTML = "Token is empty!");
 	}
 
+	// create request
 	var headers = {
 		"Content-Type": "application/json",
 		Authorization: `Bearer ${token}`,
@@ -52,6 +61,7 @@ async function test() {
 		temperature: 0.7,
 	});
 
+	// fetch
 	fetch(apiUrl, { method: "POST", headers: headers, body: body })
 		.then((res) => res.json())
 		.then((data) => {
@@ -66,4 +76,5 @@ async function test() {
 		});
 }
 
-window.addEventListener("load", test);
+// Run when load
+window.addEventListener("load", script);
