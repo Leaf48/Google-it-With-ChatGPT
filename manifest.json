@@ -1,0 +1,15 @@
+{
+	"manifest_version": 3,
+	"name": "Google It With ChatGPT",
+	"version": "1.0",
+	"permissions": ["scripting", "storage", "activeTab"],
+	"content_scripts": [
+		{
+			"matches": ["https://www.google.com/search?q=*"],
+			"js": ["content-script.js"]
+		}
+	],
+	"action": {
+		"default_popup": "popup.html"
+	}
+}
